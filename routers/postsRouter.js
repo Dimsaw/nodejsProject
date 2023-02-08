@@ -1,4 +1,5 @@
 const express = require("express");
+const Joi = require("joi");
 const router = express.Router();
 const uniqid = require("uniqid");
 
@@ -28,6 +29,16 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  const schema = Joi.object({
+    topic: Joi.string().alphanum().min(3).max(30).required(),
+    text: Joi.string().alphanum().min(3).max(30).required(),
+  });
+
+  const validationResult = schema.validate(req.body);
+  if (validationResult.error) {
+    return res.status(400).json({ status: validationResult.error.details });
+  }
+
   const { topic, text } = req.body;
   posts.push({
     id: uniqid(),
@@ -38,14 +49,48 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  const schema = Joi.object({
+    topic: Joi.string().alphanum().min(3).max(30).required(),
+    text: Joi.string().alphanum().min(3).max(30).required(),
+  });
+
+  const validationResult = schema.validate(req.body);
+  if (validationResult.error) {
+    return res.status(400).json({ status: validationResult.error.details });
+  }
   const { topic, text } = req.body;
+
   posts.forEach((post) => {
     if (post.id === req.params.id) {
       post.topic = topic;
       post.text = text;
     }
-    res.json({ status: "success" });
   });
+  res.json({ status: "success" });
+});
+
+router.patch("/:id", (req, res) => {
+  const schema = Joi.object({
+    topic: Joi.string().alphanum().min(3).max(30).optional(),
+    text: Joi.string().alphanum().min(3).max(30).optional(),
+  });
+
+  const validationResult = schema.validate(req.body);
+  if (validationResult.error) {
+    return res.status(400).json({ status: validationResult.error.details });
+  }
+  const { topic, text } = req.body;
+  posts.forEach((post) => {
+    if (post.id === req.params.id) {
+      if (topic) {
+        post.topic = topic;
+      }
+      if (text) {
+        post.text = text;
+      }
+    }
+  });
+  res.json({ status: "success" });
 });
 
 router.delete("/:id", (req, res) => {
