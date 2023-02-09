@@ -1,11 +1,10 @@
-const express = require("express");
-const Joi = require("joi");
-const router = express.Router();
+const express = require('express');
+const router = new express.Router();
 
 const {
   addPostValidation,
   pathPostValidation,
-} = require("../middlewares/validationMiddleware");
+} = require('../middlewares/validationMiddleware');
 
 const {
   getPost,
@@ -14,18 +13,18 @@ const {
   changePost,
   patchPost,
   deletePost,
-} = require("../controllers/controllers");
+} = require('../controllers/controllers');
 
-router.get("/", getPost);
+router.get('/', getPost);
 
-router.get("/:id", getPostById);
+router.get('/:id', getPostById);
 
-router.post("/", addPostValidation, addPost);
+router.post('/', addPostValidation, addPost);
 
-router.put("/:id", addPostValidation, changePost);
+router.put('/:id', addPostValidation, changePost);
 
-router.patch("/:id", pathPostValidation, patchPost);
+router.patch('/:id', pathPostValidation, patchPost);
 
-router.delete("/:id", deletePost);
+router.delete('/:id', deletePost);
 
-module.exports = { postsRouter: router };
+module.exports = {postsRouter: router};
