@@ -9,7 +9,7 @@ app.use(morgan("tiny"));
 
 const PORT = process.env.PORT || 8081;
 
-const { postsRouter } = require("./routers/postsRouter.js");
+const { postsRouter } = require("./src/routers/postsRouter.js");
 
 app.use("/api/posts", postsRouter);
 
