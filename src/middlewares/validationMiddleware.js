@@ -3,8 +3,10 @@ const Joi = require('joi');
 module.exports = {
   addPostValidation: (req, res, next) => {
     const schema = Joi.object({
-      topic: Joi.string().alphanum().min(3).max(30).required(),
-      text: Joi.string().alphanum().min(3).max(30).required(),
+      topic: Joi.string().alphanum().min(3).max(30)
+          .required(),
+      text: Joi.string().alphanum().min(3).max(30)
+          .required(),
     });
 
     const validationResult = schema.validate(req.body);
@@ -16,8 +18,10 @@ module.exports = {
 
   pathPostValidation: (req, res, next) => {
     const schema = Joi.object({
-      topic: Joi.string().alphanum().min(3).max(30).optional(),
-      text: Joi.string().alphanum().min(3).max(30).optional(),
+      topic: Joi.string().alphanum().min(3).max(30)
+          .optional(),
+      text: Joi.string().alphanum().min(3).max(30)
+          .optional(),
     });
 
     const validationResult = schema.validate(req.body);
