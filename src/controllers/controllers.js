@@ -1,70 +1,61 @@
-const uniqid = require('uniqid');
+const { connectMongo } = require("../db/connection");
 
-let posts = [
-  {id: '1', topic: 'test1', text: 'test text1'},
-  {id: '2', topic: 'test2', text: 'test text2'},
-  {id: '3', topic: 'test3', text: 'test text3'},
-  {id: '4', topic: 'test4', text: 'test text4'},
-  {id: '5', topic: 'test5', text: 'test text5'},
-  {id: '6', topic: 'test6', text: 'test text6'},
-];
-
-const getPost = (req, res) => {
-  res.json({posts, status: 'success'});
+const getPost = async (req, res) => {
+  const { Posts } = await connectMongo();
+  const posts = await Posts.find({}).toArray();
+  res.json({ posts });
 };
 
 const getPostById = (req, res) => {
-  const {id} = req.params;
-  const [post] = posts.filter((item) => item.id === id);
-
-  if (!post) {
-    return res
-        .status(400)
-        .json({status: `failure, no post with this id: ${id}`});
-  }
-  res.json({post, status: 'success'});
+  //   const { id } = req.params;
+  //   const [post] = posts.filter((item) => item.id === id);
+  //   if (!post) {
+  //     return res
+  //       .status(400)
+  //       .json({ status: `failure, no post with this id: ${id}` });
+  //   }
+  //   res.json({ post, status: "success" });
 };
 
 const addPost = (req, res) => {
-  const {topic, text} = req.body;
-  posts.push({
-    id: uniqid(),
-    topic,
-    text,
-  });
-  res.json({status: 'success'});
+  //   const { topic, text } = req.body;
+  //   posts.push({
+  //     id: uniqid(),
+  //     topic,
+  //     text,
+  //   });
+  //   res.json({ status: "success" });
 };
 
 const changePost = (req, res) => {
-  const {topic, text} = req.body;
-
-  posts.forEach((post) => {
-    if (post.id === req.params.id) {
-      post.topic = topic;
-      post.text = text;
-    }
-  });
-  res.json({status: 'success'});
+  //   const { topic, text } = req.body;
+  //   posts.forEach((post) => {
+  //     if (post.id === req.params.id) {
+  //       post.topic = topic;
+  //       post.text = text;
+  //     }
+  //   });
+  //   res.json({ status: "success" });
 };
 
 const patchPost = (req, res) => {
-  const {topic, text} = req.body;
-  posts.forEach((post) => {
-    if (post.id === req.params.id) {
-      if (topic) {
-        post.topic = topic;
-      }
-      if (text) {
-        post.text = text;
-      }
-    }
-  });
-  res.json({status: 'success'});
+  //   const { topic, text } = req.body;
+  //   posts.forEach((post) => {
+  //     if (post.id === req.params.id) {
+  //       if (topic) {
+  //         post.topic = topic;
+  //       }
+  //       if (text) {
+  //         post.text = text;
+  //       }
+  //     }
+  //   });
+  //   res.json({ status: "success" });
 };
 
 const deletePost = (req, res) => {
-  posts = posts.filter((item) => item.id !== req.params.id);
-  res.json({status: 'success'});
+  //   posts = posts.filter((item) => item.id !== req.params.id);
+  //   res.json({ status: "success" });
 };
 
 module.exports = {
