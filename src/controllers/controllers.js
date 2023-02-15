@@ -18,34 +18,24 @@ const getPostById = async (req, res) => {
 
 const addPost = async (req, res) => {
   const { topic, text } = req.body;
-  await req.db.Posts.insert({ topic, text });
-  res.json({ status: "success" });
+  const post = await req.db.Posts.insert({ topic, text });
+  res.json({ post, status: "success" });
 };
 
 const changePost = async (req, res) => {
   const { topic, text } = req.body;
 
+  await req.db.Posts.updateOne(
+    { _id: new ObjectId(req.params.id) },
+    { $set: { topic, text } }
+  );
+
   res.json({ status: "success" });
 };
 
-const patchPost = async (req, res) => {
-  //   const { topic, text } = req.body;
-  //   posts.forEach((post) => {
-  //     if (post.id === req.params.id) {
-  //       if (topic) {
-  //         post.topic = topic;
-  //       }
-  //       if (text) {
-  //         post.text = text;
-  //       }
-  //     }
-  //   });
-  //   res.json({ status: "success" });
-};
-
 const deletePost = async (req, res) => {
-  //   posts = posts.filter((item) => item.id !== req.params.id);
-  //   res.json({ status: "success" });
+  await req.db.Posts.deleteOne({ _id: new ObjectId(req.params.id) });
+  res.json({ status: "success" });
 };
 
 module.exports = {
@@ -53,6 +43,5 @@ module.exports = {
   getPostById,
   addPost,
   changePost,
-  patchPost,
   deletePost,
 };

@@ -4,15 +4,20 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(express.json());
-app.use(morgan("tiny"));
 const { connectMongo } = require("./src/db/connection");
-
-const PORT = process.env.PORT || 8081;
 
 const { postsRouter } = require("./src/routers/postsRouter");
 
+const PORT = process.env.PORT || 8081;
+
+app.use(express.json());
+app.use(morgan("tiny"));
+
 app.use("/api/posts", postsRouter);
+
+app.use((error, req, res, next) => {
+  res.status(500).json({ message: error.message });
+});
 
 const start = async () => {
   await connectMongo();
