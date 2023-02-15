@@ -20,11 +20,15 @@ app.use((error, req, res, next) => {
 });
 
 const start = async () => {
-  await connectMongo();
-  app.listen(PORT, (error) => {
-    if (error) console.error("Error at server launch", error);
-    console.log(`Server works at port ${PORT}`);
-  });
+  try {
+    await connectMongo();
+    app.listen(PORT, (error) => {
+      if (error) console.error("Error at server launch", error);
+      console.log(`Server works at port ${PORT}`);
+    });
+  } catch (error) {
+    console.error(`Failed to lauch apllication with error ${error.message}`);
+  }
 };
 
 start();
