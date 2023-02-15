@@ -1,7 +1,7 @@
-const ObjectId = require("mongodb").ObjectId;
+const { Post } = require("../db/postModel");
 
 const getPost = async (req, res) => {
-  const posts = await req.db.Posts.find({}).toArray();
+  const posts = await Post.find({});
   res.json({ posts });
 };
 
@@ -18,24 +18,23 @@ const getPostById = async (req, res) => {
 
 const addPost = async (req, res) => {
   const { topic, text } = req.body;
-  const post = await req.db.Posts.insert({ topic, text });
+  const post = new Post({ topic, text });
+  await post.save();
   res.json({ post, status: "success" });
 };
 
 const changePost = async (req, res) => {
-  const { topic, text } = req.body;
-
-  await req.db.Posts.updateOne(
-    { _id: new ObjectId(req.params.id) },
-    { $set: { topic, text } }
-  );
-
-  res.json({ status: "success" });
+  // const { topic, text } = req.body;
+  // await req.db.Posts.updateOne(
+  //   { _id: new ObjectId(req.params.id) },
+  //   { $set: { topic, text } }
+  // );
+  // res.json({ status: "success" });
 };
 
 const deletePost = async (req, res) => {
-  await req.db.Posts.deleteOne({ _id: new ObjectId(req.params.id) });
-  res.json({ status: "success" });
+  // await req.db.Posts.deleteOne({ _id: new ObjectId(req.params.id) });
+  // res.json({ status: "success" });
 };
 
 module.exports = {
