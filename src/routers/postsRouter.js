@@ -24,7 +24,7 @@ router.get("/", asyncWrapper(getPost));
 
 router.get("/:id", asyncWrapper(getPostById));
 
-router.post("/", addPostValidation, asyncWrapper(addPost));
+router.post("/", asyncWrapper(addPost));
 
 router.put("/:id", addPostValidation, asyncWrapper(changePost));
 
