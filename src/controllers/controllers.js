@@ -1,41 +1,34 @@
+const ObjectId = require("mongodb").ObjectId;
+
 const getPost = async (req, res) => {
   const posts = await req.db.Posts.find({}).toArray();
   res.json({ posts });
 };
 
-const getPostById = (req, res) => {
-  //   const { id } = req.params;
-  //   const [post] = posts.filter((item) => item.id === id);
-  //   if (!post) {
-  //     return res
-  //       .status(400)
-  //       .json({ status: `failure, no post with this id: ${id}` });
-  //   }
-  //   res.json({ post, status: "success" });
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const post = await req.db.Posts.findOne({ _id: new ObjectId(id) });
+  if (!post) {
+    return res
+      .status(400)
+      .json({ status: `failure, no post with this id: ${id}` });
+  }
+  res.json({ post, status: "success" });
 };
 
-const addPost = (req, res) => {
-  //   const { topic, text } = req.body;
-  //   posts.push({
-  //     id: uniqid(),
-  //     topic,
-  //     text,
-  //   });
-  //   res.json({ status: "success" });
+const addPost = async (req, res) => {
+  const { topic, text } = req.body;
+  await req.db.Posts.insert({ topic, text });
+  res.json({ status: "success" });
 };
 
-const changePost = (req, res) => {
-  //   const { topic, text } = req.body;
-  //   posts.forEach((post) => {
-  //     if (post.id === req.params.id) {
-  //       post.topic = topic;
-  //       post.text = text;
-  //     }
-  //   });
-  //   res.json({ status: "success" });
+const changePost = async (req, res) => {
+  const { topic, text } = req.body;
+
+  res.json({ status: "success" });
 };
 
-const patchPost = (req, res) => {
+const patchPost = async (req, res) => {
   //   const { topic, text } = req.body;
   //   posts.forEach((post) => {
   //     if (post.id === req.params.id) {
@@ -50,7 +43,7 @@ const patchPost = (req, res) => {
   //   res.json({ status: "success" });
 };
 
-const deletePost = (req, res) => {
+const deletePost = async (req, res) => {
   //   posts = posts.filter((item) => item.id !== req.params.id);
   //   res.json({ status: "success" });
 };
