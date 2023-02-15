@@ -23,8 +23,3 @@ const start = async () => {
 };
 
 start();
-
-// app.listen(PORT, (error) => {
-//   if (error) console.error("Error at server launch", error);
-//   console.log(`Server works at port ${PORT}`);
-// });

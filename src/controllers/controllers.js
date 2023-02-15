@@ -1,8 +1,5 @@
-const { connectMongo } = require("../db/connection");
-
 const getPost = async (req, res) => {
-  const { Posts } = await connectMongo();
-  const posts = await Posts.find({}).toArray();
+  const posts = await req.db.Posts.find({}).toArray();
   res.json({ posts });
 };
 

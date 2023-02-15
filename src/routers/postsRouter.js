@@ -1,11 +1,13 @@
-const express = require('express');
+const express = require("express");
 
 const router = new express.Router();
 
 const {
   addPostValidation,
   pathPostValidation,
-} = require('../middlewares/validationMiddleware');
+} = require("../middlewares/validationMiddleware");
+
+const modelsMiddleware = require("../middlewares/models");
 
 const {
   getPost,
@@ -14,18 +16,20 @@ const {
   changePost,
   patchPost,
   deletePost,
-} = require('../controllers/controllers');
+} = require("../controllers/controllers");
 
-router.get('/', getPost);
+router.use(modelsMiddleware);
 
-router.get('/:id', getPostById);
+router.get("/", getPost);
 
-router.post('/', addPostValidation, addPost);
+router.get("/:id", getPostById);
 
-router.put('/:id', addPostValidation, changePost);
+router.post("/", addPostValidation, addPost);
 
-router.patch('/:id', pathPostValidation, patchPost);
+router.put("/:id", addPostValidation, changePost);
 
-router.delete('/:id', deletePost);
+router.patch("/:id", pathPostValidation, patchPost);
 
-module.exports = {postsRouter: router};
+router.delete("/:id", deletePost);
+
+module.exports = { postsRouter: router };
