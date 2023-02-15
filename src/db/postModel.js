@@ -4,7 +4,7 @@ const postSchema = new mongoose.Schema({
   topic: {
     type: String,
     required: true,
-    uniq: true,
+    unique: true,
   },
   text: {
     type: String,
@@ -16,7 +16,7 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const Post = mongoose.model("User", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 module.exports = {
   Post,

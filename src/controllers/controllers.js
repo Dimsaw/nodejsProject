@@ -7,7 +7,7 @@ const getPost = async (req, res) => {
 
 const getPostById = async (req, res) => {
   const { id } = req.params;
-  const post = await req.db.Posts.findOne({ _id: new ObjectId(id) });
+  const post = await Post.findById(id);
   if (!post) {
     return res
       .status(400)
@@ -24,17 +24,16 @@ const addPost = async (req, res) => {
 };
 
 const changePost = async (req, res) => {
-  // const { topic, text } = req.body;
-  // await req.db.Posts.updateOne(
-  //   { _id: new ObjectId(req.params.id) },
-  //   { $set: { topic, text } }
-  // );
-  // res.json({ status: "success" });
+  const { id } = req.params;
+  const { topic, text } = req.body;
+  await Post.findByIdAndUpdate(id, { $set: { topic, text } });
+  res.json({ status: "success" });
 };
 
 const deletePost = async (req, res) => {
-  // await req.db.Posts.deleteOne({ _id: new ObjectId(req.params.id) });
-  // res.json({ status: "success" });
+  const { id } = req.params;
+  await Post.findByIdAndRemove(id);
+  res.json({ status: "success" });
 };
 
 module.exports = {
