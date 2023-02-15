@@ -8,7 +8,6 @@ const {
 } = require("../middlewares/validationMiddleware");
 
 const { asyncWrapper } = require("../helpers/apiHelpers");
-const modelsMiddleware = require("../middlewares/models");
 
 const {
   getPost,
@@ -17,8 +16,6 @@ const {
   changePost,
   deletePost,
 } = require("../controllers/controllers");
-
-router.use(modelsMiddleware);
 
 router.get("/", asyncWrapper(getPost));
 
