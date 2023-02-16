@@ -18,8 +18,8 @@ const getPostById = async (req, res) => {
 
 const addPost = async (req, res) => {
   const { topic, text } = req.body;
-  await addPost({ topic, text });
-  res.json({ post, status: "success" });
+  await req.db.Posts.insertOne({ text, topic });
+  res.json({ status: "success" });
 };
 
 const changePost = async (req, res) => {
