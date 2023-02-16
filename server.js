@@ -8,6 +8,8 @@ const { connectMongo } = require("./src/db/connection");
 
 const { postsRouter } = require("./src/routers/postsRouter");
 
+const { errorHandler } = require("./src/helpers/apiHelpers");
+
 const PORT = process.env.PORT || 8081;
 
 app.use(express.json());
@@ -15,16 +17,18 @@ app.use(morgan("tiny"));
 
 app.use("/api/posts", postsRouter);
 
-app.use((error, req, res, next) => {
-  res.status(500).json({ message: error.message });
-});
+app.use(errorHandler);
 
 const start = async () => {
-  await connectMongo();
-  app.listen(PORT, (error) => {
-    if (error) console.error("Error at server launch", error);
-    console.log(`Server works at port ${PORT}`);
-  });
+  try {
+    await connectMongo();
+    app.listen(PORT, (error) => {
+      if (error) console.error("Error at server launch", error);
+      console.log(`Server works at port ${PORT}`);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
 start();
