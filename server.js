@@ -27,7 +27,7 @@ const start = async () => {
       console.log(`Server works at port ${PORT}`);
     });
   } catch (error) {
-    console.error(error.message);
+    console.error(`Failed to lauch apllication with error ${error.message}`);
   }
 };
 
