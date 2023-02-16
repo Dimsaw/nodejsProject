@@ -7,6 +7,7 @@ const {
 } = require("../services/postsService");
 
 const getPostsController = async (req, res) => {
+  co;
   res.json({ posts });
 };
 

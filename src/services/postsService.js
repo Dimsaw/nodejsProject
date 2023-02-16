@@ -1,16 +1,16 @@
 const { Post } = require("../db/postModel");
 
-const getPosts = () => {
+const getPosts = async () => {
   const posts = await Post.find({});
 };
 
-const getPostsById = () => {};
+const getPostsById = async () => {};
 
-const addPost = () => {};
+const addPost = async () => {};
 
-const changePostById = () => {};
+const changePostById = async () => {};
 
-const deletePostById = () => {};
+const deletePostById = async () => {};
 
 module.exports = {
   getPosts,
