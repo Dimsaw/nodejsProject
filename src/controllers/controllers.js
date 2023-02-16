@@ -18,7 +18,7 @@ const getPostById = async (req, res) => {
 
 const addPost = async (req, res) => {
   const { topic, text } = req.body;
-  const post = await req.db.Posts.insert({ topic, text });
+  await addPost({ topic, text });
   res.json({ post, status: "success" });
 };
 
