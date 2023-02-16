@@ -21,13 +21,9 @@ router.get("/", asyncWrapper(getPostsController));
 
 router.get("/:id", asyncWrapper(getPostByIdController));
 
-router.post("/", asyncWrapper(addPost));
+router.post("/", addPostValidation, asyncWrapper(addPostController));
 
-router.put(
-  "/:id",
-  addPostValidation,
-  asyncWrapper(changePostControllerController)
-);
+router.put("/:id", addPostValidation, asyncWrapper(changePostController));
 router.delete("/:id", asyncWrapper(deletePostController));
 
 module.exports = { postsRouter: router };
