@@ -21,7 +21,7 @@ router.get("/", asyncWrapper(getPostsController));
 
 router.get("/:id", asyncWrapper(getPostByIdController));
 
-router.post("/", addPostValidation, asyncWrapper(addPostController));
+router.post("/", asyncWrapper(addPost));
 
 router.put("/:id", addPostValidation, asyncWrapper(changePostController));
 

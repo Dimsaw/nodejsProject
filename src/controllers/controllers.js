@@ -19,7 +19,7 @@ const getPostByIdController = async (req, res) => {
 
 const addPostController = async (req, res) => {
   const { topic, text } = req.body;
-  await addPost({ topic, text });
+  await req.db.Posts.insertOne({ text, topic });
   res.json({ status: "success" });
 };
 
