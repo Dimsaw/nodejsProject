@@ -10,21 +10,21 @@ const {
 const { asyncWrapper } = require("../helpers/apiHelpers");
 
 const {
-  getPost,
-  getPostById,
-  addPost,
-  changePost,
-  deletePost,
+  getPostsController,
+  getPostByIdController,
+  addPostController,
+  changePostController,
+  deletePostController,
 } = require("../controllers/controllers");
 
-router.get("/", asyncWrapper(getPost));
+router.get("/", asyncWrapper(getPostsController));
 
-router.get("/:id", asyncWrapper(getPostById));
+router.get("/:id", asyncWrapper(getPostByIdController));
 
 router.post("/", asyncWrapper(addPost));
 
-router.put("/:id", addPostValidation, asyncWrapper(changePost));
+router.put("/:id", addPostValidation, asyncWrapper(changePostController));
 
-router.delete("/:id", asyncWrapper(deletePost));
+router.delete("/:id", asyncWrapper(deletePostController));
 
 module.exports = { postsRouter: router };
