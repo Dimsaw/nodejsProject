@@ -8,6 +8,7 @@ const {
 
 const getPostsController = async (req, res) => {
   const posts = await getPosts();
+  console.log("dscsd", posts);
   res.json({ posts });
 };
 

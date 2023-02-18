@@ -3,6 +3,7 @@ const { WrongsParametersError } = require("../helpers/errors");
 
 const getPosts = async () => {
   const posts = await Post.find({});
+  console.log(posts);
   return posts;
 };
 
