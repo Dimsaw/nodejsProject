@@ -1,6 +1,8 @@
 const { User } = require("../db/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-const { notAuthorizedError } = require("../helpers/errors");
+const { NotAuthorizedError } = require("../helpers/errors");
 // const { WrongsParametersError } = require("../helpers/errors");
 
 const registration = async (email, password) => {
@@ -8,12 +10,23 @@ const registration = async (email, password) => {
   await user.save();
 };
 
-const login = async (id) => {
-  //   const post = await Post.findById(id);
-  //   if (!post) {
-  //     throw new WrongsParametersError(`failure, no post with this id: ${id}`);
-  //   }
-  //   return post;
+const login = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new NotAuthorizedError(`No user with email: ${email} found`);
+  }
+
+  if (!(await bcrypt.compare(password, user.password))) {
+    throw new NotAuthorizedError(`wrong password`);
+  }
+  const token = jwt.sign(
+    {
+      _id: user._id,
+      createdAt: user.createdAt,
+    },
+    process.env.JWT_SECRET
+  );
+  return token;
 };
 
 module.exports = {

@@ -1,4 +1,4 @@
-class ValidationError extends Error {
+class Nodejs26Error extends Error {
   constructor(message) {
     super(message);
 
@@ -6,7 +6,7 @@ class ValidationError extends Error {
   }
 }
 
-class WrongsParametersError extends Error {
+class ValidationError extends Nodejs26Error {
   constructor(message) {
     super(message);
 
@@ -14,7 +14,15 @@ class WrongsParametersError extends Error {
   }
 }
 
-class notAuthorizedError extends Error {
+class WrongsParametersError extends Nodejs26Error {
+  constructor(message) {
+    super(message);
+
+    this.status = 400;
+  }
+}
+
+class NotAuthorizedError extends Nodejs26Error {
   constructor(message) {
     super(message);
 
@@ -25,5 +33,6 @@ class notAuthorizedError extends Error {
 module.exports = {
   ValidationError,
   WrongsParametersError,
-  notAuthorizedError,
+  NotAuthorizedError,
+  Nodejs26Error,
 };
