@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 
 app.use("/api/posts", postsRouter);
-app.use("/api/posts", authRouter);
+app.use("/api/auth", authRouter);
 
 app.use(errorHandler);
 

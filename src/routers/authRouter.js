@@ -5,11 +5,11 @@ const router = new express.Router();
 const { asyncWrapper } = require("../helpers/apiHelpers");
 
 const {
-  getPostsController,
-  getPostByIdController,
-} = require("../controllers/controllers");
+  registrationController,
+  loginController,
+} = require("../controllers/authController");
 
-router.post("/registration", asyncWrapper(getPostsController));
-router.post("/login", asyncWrapper(getPostByIdController));
+router.post("/registration", asyncWrapper(registrationController));
+router.post("/login", asyncWrapper(loginController));
 
 module.exports = { authRouter: router };

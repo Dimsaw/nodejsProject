@@ -14,4 +14,16 @@ class WrongsParametersError extends Error {
   }
 }
 
-module.exports = { ValidationError, WrongsParametersError };
+class notAuthorizedError extends Error {
+  constructor(message) {
+    super(message);
+
+    this.status = 401;
+  }
+}
+
+module.exports = {
+  ValidationError,
+  WrongsParametersError,
+  notAuthorizedError,
+};

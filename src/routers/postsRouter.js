@@ -15,7 +15,7 @@ const {
   addPostController,
   changePostController,
   deletePostController,
-} = require("../controllers/controllers");
+} = require("../controllers/postsControllers");
 
 router.get("/", asyncWrapper(getPostsController));
 
