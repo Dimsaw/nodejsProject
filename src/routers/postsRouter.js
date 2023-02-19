@@ -2,10 +2,9 @@ const express = require("express");
 
 const router = new express.Router();
 
-const {
-  addPostValidation,
-  pathPostValidation,
-} = require("../middlewares/validationMiddleware");
+const { addPostValidation } = require("../middlewares/validationMiddleware");
+
+const { authMiddleware } = require("../middlewares/authMiddleware");
 
 const { asyncWrapper } = require("../helpers/apiHelpers");
 
@@ -17,12 +16,11 @@ const {
   deletePostController,
 } = require("../controllers/postsControllers");
 
+router.use(authMiddleware);
+
 router.get("/", asyncWrapper(getPostsController));
-
 router.get("/:id", asyncWrapper(getPostByIdController));
-
 router.post("/", addPostValidation, asyncWrapper(addPostController));
-
 router.put("/:id", addPostValidation, asyncWrapper(changePostController));
 router.delete("/:id", asyncWrapper(deletePostController));
 

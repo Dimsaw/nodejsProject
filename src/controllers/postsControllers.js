@@ -7,8 +7,8 @@ const {
 } = require("../services/postsService");
 
 const getPostsController = async (req, res) => {
+  console.log(req.user);
   const posts = await getPosts();
-  console.log("dscsd", posts);
   res.json({ posts });
 };
 
