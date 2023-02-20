@@ -9,7 +9,7 @@ const getPosts = async (userId) => {
 const getPostsById = async (postId, userId) => {
   const post = await Post.findOne({ _id: postId, userId });
   if (!post) {
-    throw new WrongsParametersError(`failure, no post with this id: ${id}`);
+    throw new WrongsParametersError(`failure, no post with this id: ${postId}`);
   }
   return post;
 };
