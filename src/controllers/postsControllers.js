@@ -9,8 +9,11 @@ const {
 const getPostsController = async (req, res) => {
   console.log(req.user);
   const { _id: userId } = req.user;
-  const posts = await getPosts(userId);
-  res.json({ posts });
+  let { skip = 0, limit = 3 } = req.query;
+  skip = parseInt(skip);
+  limit = parseInt(limit) > 5 ? 5 : parseInt(limit);
+  const posts = await getPosts(userId, { skip, limit });
+  res.json({ posts, skip, limit });
 };
 
 const getPostByIdController = async (req, res) => {
