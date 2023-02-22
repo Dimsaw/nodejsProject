@@ -6,7 +6,7 @@ const getPosts = async (userId, { skip, limit }) => {
     .select({ __v: 0 })
     .skip(skip)
     .limit(limit)
-    .sort("userId");
+    .sort("name");
   return posts;
 };
 
