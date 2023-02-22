@@ -5,7 +5,8 @@ const getPosts = async (userId, { skip, limit }) => {
   const posts = await Post.find({ userId })
     .select({ __v: 0 })
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .sort("name");
   return posts;
 };
 
