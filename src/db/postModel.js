@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
   topic: {
     type: String,
-    required: true,
     unique: true,
+    required: true,
   },
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   text: {

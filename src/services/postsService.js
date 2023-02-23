@@ -7,6 +7,15 @@ const getPosts = async (userId, { skip, limit }) => {
     .skip(skip)
     .limit(limit)
     .sort("name");
+
+  // const posts = await Post.aggregate([
+  //   {
+  //     $project: {
+  //       __v: 0,
+  //       password: 0,
+  //     },
+  //   },
+  // ]);
   return posts;
 };
 
