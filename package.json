@@ -35,6 +35,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "jest": "^29.4.3",
     "nodemon": "^2.0.20",
     "npx": "^10.2.2"
   }
