@@ -30,6 +30,7 @@ const registration = async (email, password) => {
     subject: "Thank you for registration",
     text: `Please, confirn your email address POST http://localhost:8084/api/auth/registration_confermation/${code}`,
     html: `Please, confirn your email address POST http://localhost:8084/api/auth/registration_confermation/${code}`,
+    // html: `Please,<a href="http://localhost:8084/api/auth/registration_confermation/${code}">confirn</a> confirn your email address  `, another simple
   };
 
   await sgMail.send(msg);
@@ -69,7 +70,7 @@ const registrationConfirmation = async (code) => {
 };
 
 const login = async (email, password) => {
-  const user = await User.findOne({ email, confurmed: true });
+  const user = await User.findOne({ email, confirmed: true });
   if (!user) {
     throw new NotAuthorizedError(`No user with email: ${email} found`);
   }

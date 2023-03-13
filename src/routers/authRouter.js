@@ -15,6 +15,10 @@ router.post(
   "/registration_confermation/:code",
   asyncWrapper(registrationConfirmationController)
 );
+// router.get(
+//   "/registration_confermation/:code",
+//   asyncWrapper(registrationConfirmationController)
+// );
 router.post("/login", asyncWrapper(loginController));
 
 module.exports = { authRouter: router };
