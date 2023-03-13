@@ -71,13 +71,18 @@ const registrationConfirmation = async (code) => {
 
 const login = async (email, password) => {
   const user = await User.findOne({ email, confirmed: true });
+  console.log(user);
   if (!user) {
     throw new NotAuthorizedError(`No user with email: ${email} found`);
   }
-
-  if (!(await bcrypt.compare(password, user.password))) {
+  console.log(password);
+  console.log(user.password);
+  const result = await bcrypt.compare(password, user.password);
+  console.log(result);
+  if (!result) {
     throw new NotAuthorizedError(`wrong password`);
   }
+  console.log(password);
   const token = jwt.sign(
     {
       _id: user._id,
@@ -88,8 +93,31 @@ const login = async (email, password) => {
   return token;
 };
 
+const forgotPassword = async (email) => {
+  const user = await User.findOne({ email, confirmed: true });
+
+  if (!user) {
+    throw new NotAuthorizedError(`No user with email: ${email} found`);
+  }
+
+  const password = sha256(Date.now() + process.env.JWT_SECRET);
+  user.password = password;
+  await user.save();
+
+  const msg = {
+    to: "dimsaw85@gmail.com",
+    from: "dimsaw85@gmail.com",
+    subject: "Forgot password",
+    text: `this is your new password: ${password}`,
+    html: `<h1>this is your new password: ${password}</h1>`,
+  };
+
+  await sgMail.send(msg);
+};
+
 module.exports = {
   registration,
   login,
   registrationConfirmation,
+  forgotPassword,
 };
