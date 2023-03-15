@@ -1,3 +1,4 @@
 node_modules
 package-lock.json
 gcp.json
+SENDGRID_API_KEY
