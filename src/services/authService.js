@@ -54,8 +54,8 @@ const registrationConfirmation = async (code) => {
 
   verification.active = false;
   await verification.save();
-
   user.confirmed = true;
+
   await user.save();
 
   const msg = {
@@ -63,7 +63,7 @@ const registrationConfirmation = async (code) => {
     from: "dimsaw85@gmail.com",
     subject: "Thank you for registration",
     text: "and easy to do anywhere, even with Node.js",
-    html: "<h1>and easy to do anywhere, even with Node.js</h1>",
+    html: `<h1>  and easy to do anywhere, even with Node.js</h1>`,
   };
 
   await sgMail.send(msg);
